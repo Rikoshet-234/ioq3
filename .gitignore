@@ -1,4 +1,5 @@
 build
+.vscode
 Makefile.local
 *.swp
 *tags
