@@ -271,10 +271,12 @@ void main()
 #if defined(USE_LIGHTMAP)
 	vec4 lightmapColor = texture2D(u_LightMap, var_TexCoords.zw);
   #if defined(RGBM_LIGHTMAP)
-	lightmapColor.rgb *= lightmapColor.a;
+  	lightmapColor.rgb = pow(lightmapColor.rgb, vec3(2.233333));
+	//lightmapColor.rgb *= lightmapColor.a; //ugamma
   #endif
   #if defined(USE_PBR) && !defined(USE_FAST_LIGHT)
-	lightmapColor.rgb *= lightmapColor.rgb;
+  	lightmapColor.rgb = pow(lightmapColor.rgb, vec3(2.233333));
+	//lightmapColor.rgb *= lightmapColor.rgb; // ugamma
   #endif
 	lightColor *= lightmapColor.rgb;
 #endif
@@ -388,7 +390,8 @@ void main()
 	specular *= u_SpecularScale;
 
   #if defined(USE_PBR)
-	diffuse.rgb *= diffuse.rgb;
+	diffuse.rgb = pow(diffuse.rgb, vec3(2.233333));
+	//diffuse.rgb *= diffuse.rgb; udiff
   #endif
 
   #if defined(USE_PBR)
@@ -453,7 +456,8 @@ void main()
 	//cubeLightColor /= dot(cubeLightDiffuse, vec3(0.2125, 0.7154, 0.0721));
 
     #if defined(USE_PBR)
-	cubeLightColor *= cubeLightColor;
+	cubeLightColor.rgb = pow(cubeLightColor.rgb, vec3(2.233333));
+	//cubeLightColor *= cubeLightColor;
     #endif
 
 	// multiply cubemap values by lighting

@@ -29,7 +29,8 @@ void main()
 	vec4 color = texture2D(u_TextureMap, var_TexCoords) * u_Color;
 
 #if defined(USE_PBR)
-	color.rgb *= color.rgb;
+	color.rgb = pow(color.rgb, vec3(2.233333));
+	//color.rgb = color.rgb; // uncorrect gamma
 #endif
 
 	vec3 minAvgMax = texture2D(u_LevelsMap, var_TexCoords).rgb;
@@ -47,7 +48,8 @@ void main()
 	color.rgb = clamp(color.rgb * var_InvWhite, 0.0, 1.0);
 
 #if defined(USE_PBR)
-	color.rgb = sqrt(color.rgb);
+	color.rgb = pow(color.rgb, vec3(0.454545));
+	//color.rgb = sqrt(color.rgb); // uncorrect gamma
 #endif
 
 	// add a bit of dither to reduce banding
