@@ -480,6 +480,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "GLSLPATH=\"${SRCROOT}/../../code/renderergl2/glsl\"\n\nfunction glslToDotC()\n{\n    INFILE=\"${1}\"\n    INEXT=\"${1##*.}\"\n    INSTRIP=\"${1##*/}\"\n    INBASE=\"${INSTRIP%.glsl}\"\n    OUTFILE=\"${1%.glsl}.c\"\n\n    if [ ! ${INFILE} ] || [ ! -e ${INFILE} ]; then\n        echo \"**** ERROR: no input file\"\n        exit -1\n    fi\n\n    if [ ${INEXT} != \"glsl\" ]; then\n        echo \"**** ERROR: input file must have .glsl extension\"\n        exit -2\n    fi\n\n    echo \"const char *fallbackShader_${INBASE} =\" > ${OUTFILE}\n    cat ${INFILE} | sed 's/^/\\\"/;s/$/\\\\n\\\"/' >> ${OUTFILE}\n    echo \";\" >> ${OUTFILE}\n}\n\npushd \"${GLSLPATH}\"\n\nfind *.glsl | while read GLSLFILE; do glslToDotC \"${GLSLFILE}\"; done\n\npopd\n";
+<<<<<<< HEAD
 		};
 		2758BA48178FD003007F6582 /* Run Script - Delete GLSL-Generated C Files */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -494,6 +495,8 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "GLSLPATH=\"${SRCROOT}/../../code/renderergl2/glsl\"\n\npushd \"${GLSLPATH}\"\n\nfind *.c -delete\n\npopd\n";
+=======
+>>>>>>> parent of a03cb319... Figured out method of referencing GLSL generated C files outside of code directory
 		};
 /* End PBXShellScriptBuildPhase section */
 
