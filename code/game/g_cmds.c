@@ -637,6 +637,8 @@ void SetTeam( gentity_t *ent, const char *s ) {
 		CheckTeamLeader( oldTeam );
 	}
 
+	BroadcastTeamChange( client, oldTeam );
+
 	// get and distribute relevant parameters
 	ClientUserinfoChanged( clientNum );
 
@@ -644,8 +646,6 @@ void SetTeam( gentity_t *ent, const char *s ) {
 	if ( client->pers.connected != CON_CONNECTED ) {
 		return;
 	}
-
-	BroadcastTeamChange( client, oldTeam );
 
 	ClientBegin( clientNum );
 }
