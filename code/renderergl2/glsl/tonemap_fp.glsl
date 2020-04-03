@@ -24,13 +24,18 @@ float FilmicTonemap(float x)
 	return ((x*(SS*x+LA*LS)+TS*TAN)/(x*(SS*x+LS)+TS*TAD)) - TAN/TAD;
 }
 
+float Reinhard(float x) 
+{
+	return x/(1+x);
+}
+
 void main()
 {
 	vec4 color = texture2D(u_TextureMap, var_TexCoords) * u_Color;
 
 #if defined(USE_PBR)
-	color.rgb = pow(color.rgb, vec3(2.233333));
-	//color.rgb = color.rgb; // uncorrect gamma
+	//color.rgb = pow(color.rgb, vec3(2.233333));
+	color.rgb *= color.rgb; // uncorrect gamma
 #endif
 
 	vec3 minAvgMax = texture2D(u_LevelsMap, var_TexCoords).rgb;
@@ -48,8 +53,8 @@ void main()
 	color.rgb = clamp(color.rgb * var_InvWhite, 0.0, 1.0);
 
 #if defined(USE_PBR)
-	color.rgb = pow(color.rgb, vec3(0.454545));
-	//color.rgb = sqrt(color.rgb); // uncorrect gamma
+	//color.rgb = pow(color.rgb, vec3(0.454545));
+	color.rgb = sqrt(color.rgb); // uncorrect gamma
 #endif
 
 	// add a bit of dither to reduce banding
@@ -57,3 +62,4 @@ void main()
 
 	gl_FragColor = color;
 }
+

@@ -499,22 +499,20 @@ void VectorRotate( vec3_t in, vec3_t matrix[3], vec3_t out )
 /*
 ** float q_rsqrt( float number )
 */
-
 /*
-long float invsqrt_Quake_style_x64(long float number) // "Quake 3: Arena" engine style inverse quadratic root for x64 platforms
+float invsqrt_Quake_style_x64(float number) // "Quake 3: Arena" engine style inverse quadratic root for x64 platforms
 {
-	long float y = number;
-	long float x2 = y * 0.5;
-	long long int  i = *(long long int*) & y;
+	float y = number;
+	float x2 = y * 0.5;
+	long int  i = *(long int*) & y;
 	// The magic number for long floats taken from https://cs.uwaterloo.ca/~m32rober/rsqrt.pdf 
 	i = 0x5fe6eb50c7b537a9 - (i >> 1);
-	y = *(long float*)&i;
+	y = *(float*)&i;
 	y = y * (1.5 - (x2 * y * y)); // 1st iteration
 	y = y * (1.5 - (x2 * y * y)); // 2nd iteration, this can be removed, but give us higher precision of approximation :)
 	return y;
 }
 */
-
 float Q_rsqrt( float number )
 {
 	floatint_t t;

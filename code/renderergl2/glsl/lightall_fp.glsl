@@ -272,7 +272,7 @@ void main()
 	vec4 lightmapColor = texture2D(u_LightMap, var_TexCoords.zw);
   #if defined(RGBM_LIGHTMAP)
   	lightmapColor.rgb = pow(lightmapColor.rgb, vec3(2.233333));
-	//lightmapColor.rgb *= lightmapColor.a; //ugamma
+	//lightmapColor.rgb *= lightmapColor.a; // ugamma
   #endif
   #if defined(USE_PBR) && !defined(USE_FAST_LIGHT)
   	lightmapColor.rgb = pow(lightmapColor.rgb, vec3(2.233333));
@@ -391,7 +391,7 @@ void main()
 
   #if defined(USE_PBR)
 	diffuse.rgb = pow(diffuse.rgb, vec3(2.233333));
-	//diffuse.rgb *= diffuse.rgb; udiff
+	//diffuse.rgb *= diffuse.rgb; // udiff
   #endif
 
   #if defined(USE_PBR)
@@ -457,7 +457,7 @@ void main()
 
     #if defined(USE_PBR)
 	cubeLightColor.rgb = pow(cubeLightColor.rgb, vec3(2.233333));
-	//cubeLightColor *= cubeLightColor;
+	//cubeLightColor *= cubeLightColor; // ugamma
     #endif
 
 	// multiply cubemap values by lighting
@@ -508,7 +508,8 @@ void main()
   #endif
 
   #if defined(USE_PBR)
-	gl_FragColor.rgb = sqrt(gl_FragColor.rgb);
+  	gl_FragColor.rgb = pow(gl_FragColor.rgb, vec3(0.454545));
+	//gl_FragColor.rgb = sqrt(gl_FragColor.rgb);
   #endif
 
 #else
